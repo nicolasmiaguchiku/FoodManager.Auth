@@ -1,0 +1,6 @@
+@FoodManger.Authentication.WebApi_HostAddress = http://localhost:5221
+
+GET {{FoodManger.Authentication.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
