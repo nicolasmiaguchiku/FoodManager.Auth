@@ -1,4 +1,5 @@
-﻿using FoodManager.Auth.Domain.Models;
+﻿using FoodManager.Auth.Domain.Entities;
+using Mattioli.Configurations.Models;
 
 namespace FoodManager.Auth.Domain.Interfaces.Repositories
 {

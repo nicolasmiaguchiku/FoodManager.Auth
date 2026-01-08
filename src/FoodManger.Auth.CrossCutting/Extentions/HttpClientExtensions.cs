@@ -1,4 +1,4 @@
-﻿using FoodManager.Auth.CrossCutting.Models;
+﻿using FoodManager.Internal.Shared.Http.Auth.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FoodManager.Auth.CrossCutting.Extentions

@@ -1,15 +1,18 @@
 ﻿using FoodManager.Auth.Application.Input.Commands;
 using FoodManager.Auth.Application.Input.Requests;
 using FoodManager.Auth.Application.Output.Queries;
-using FoodManager.Auth.Domain.Models;
+using Mattioli.Configurations.Models;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using FoodManager.Internal.Shared.Attributes;
 
 namespace FoodManger.Auth.WebApi.Controllers
 {
     [Route("api/v1/groups")]
     [ApiController]
+    [Authorize]
     public class GroupsController(ICommandMediator commandMediator, IQueryMediator queryMediator) : ControllerBase
     {
         /// <summary>
@@ -22,6 +25,7 @@ namespace FoodManger.Auth.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("CreateGroup")]
         public async Task<IActionResult> CreateGroup([FromBody] AddGroupRequest addGroupRequest, CancellationToken cancellationToken)
         {
             var result = await commandMediator.SendAsync(new AddGroupCommand(addGroupRequest), cancellationToken);
@@ -46,6 +50,7 @@ namespace FoodManger.Auth.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("DeleteGroup")]
         public async Task<IActionResult> DeleteGroup([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var result = await commandMediator.SendAsync(new DeleteGroupCommand(id), cancellationToken);
@@ -69,6 +74,7 @@ namespace FoodManger.Auth.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("ViewGroup")]
         public async Task<IActionResult> GetGroupByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken)
         {
             var result = await queryMediator.QueryAsync(new GetGroupByIdQuery(id), cancellationToken);
@@ -92,6 +98,7 @@ namespace FoodManger.Auth.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [RequiredRole("ViewGroup")]
         public async Task<IActionResult> GetAllGroupsAsync(CancellationToken cancellationToken)
         {
             var result = await queryMediator.QueryAsync(new GetAllGroupsQuery(), cancellationToken);

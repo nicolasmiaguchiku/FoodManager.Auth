@@ -1,13 +1,15 @@
 ﻿using FoodManager.Auth.Application.Mappers;
-using FoodManager.Auth.Application.Output.Responses;
+using FoodManager.Internal.Shared.Http.Auth.Responses;
 using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
-using FoodManager.Auth.Domain.Models;
+using Mattioli.Configurations.Models;
 using LiteBus.Queries.Abstractions;
+using Mattioli.Configurations.Http;
+using FoodManager.Internal.Shared.Services;
 
 namespace FoodManager.Auth.Application.Output.Queries
 {
-    public sealed class GetUsersGroupQueryHandler(IGroupUsersRepository groupUsersRepository, IUserRepository userRepository, IGroupRepository groupRepository) : IQueryHandler<GetUsersGroupQuery, Result<PagedResult<UserGroupResponse>>>
+    public sealed class GetUsersGroupQueryHandler(IGroupUsersRepository groupUsersRepository, IGroupRepository groupRepository) : IQueryHandler<GetUsersGroupQuery, Result<PagedResult<UserGroupResponse>>>
     {
         public async Task<Result<PagedResult<UserGroupResponse>>> HandleAsync(GetUsersGroupQuery request, CancellationToken cancellationToken = default)
         {

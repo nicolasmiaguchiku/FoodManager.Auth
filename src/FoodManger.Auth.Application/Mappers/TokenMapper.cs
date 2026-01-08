@@ -1,5 +1,5 @@
-﻿using FoodManager.Auth.Application.Output.Responses;
-using FoodManager.Auth.Domain.Models;
+﻿using FoodManager.Internal.Shared.Http.Auth.Models;
+using FoodManager.Internal.Shared.Http.Auth.Responses;
 
 namespace FoodManager.Auth.Application.Mappers
 {
@@ -7,14 +7,13 @@ namespace FoodManager.Auth.Application.Mappers
     {
         public static TokenDetailsResponse ToTokenResponse(this TokenDetails token)
         {
-            return new TokenDetailsResponse
-            {
-                AccessToken = token.Access_Token,
-                ExpiresIn = token.Expires_In,
-                RefreshToken = token.Refresh_Token,
-                TokenType = token.Token_Type,
-                Scope = token.Scope
-            };
+            return new (
+                token.Access_Token,
+                token.Expires_In,
+                token.Expires_In,
+                token.Refresh_Token,
+                token.Token_Type,
+                token.Scope);
         }
     }
 }

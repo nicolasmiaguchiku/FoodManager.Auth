@@ -1,7 +1,7 @@
 ﻿using FoodManager.Auth.Application.Mappers;
-using FoodManager.Auth.Application.Output.Responses;
+using FoodManager.Internal.Shared.Http.Auth.Responses;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
-using FoodManager.Auth.Domain.Models;
+using Mattioli.Configurations.Models;
 using LiteBus.Commands.Abstractions;
 
 namespace FoodManager.Auth.Application.Input.Commands

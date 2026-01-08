@@ -1,5 +1,5 @@
-﻿using FoodManager.Auth.Application.Output.Responses;
-using FoodManager.Auth.Domain.Models;
+﻿using FoodManager.Internal.Shared.Http.Auth.Responses;
+using Mattioli.Configurations.Models;
 using LiteBus.Queries.Abstractions;
 
 namespace FoodManager.Auth.Application.Output.Queries;

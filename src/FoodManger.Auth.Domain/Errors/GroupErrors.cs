@@ -1,4 +1,4 @@
-﻿using FoodManager.Auth.Domain.Models;
+﻿using Mattioli.Configurations.Models;
 
 namespace FoodManager.Auth.Domain.Errors
 {

@@ -1,4 +1,4 @@
-﻿using FoodManager.Auth.Domain.Models;
+﻿using Mattioli.Configurations.Models;
 using LiteBus.Commands.Abstractions;
 
 namespace FoodManager.Auth.Application.Input.Commands;

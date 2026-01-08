@@ -1,4 +1,5 @@
 using FoodManager.Auth.CrossCutting.Extentions;
+using FoodManager.Internal.Shared.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ var applicationSettings = builder.Configuration.ApplyEnvironmentOverridesToSetti
 builder.Services
     .AddHttpClients(applicationSettings.KeycloakSettings)
     .AddRepositories(applicationSettings)
+    .AddApiAuthentication(applicationSettings.KeycloakSettings.Realm)
     .ConfigureLiteBus()
     .AddOpenApi("v1");
 

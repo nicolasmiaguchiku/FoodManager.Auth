@@ -1,6 +1,6 @@
-﻿using FoodManager.Auth.Application.Output.Responses;
-using FoodManager.Auth.Domain.Filters;
-using FoodManager.Auth.Domain.Models;
+﻿using FoodManager.Internal.Shared.Http.Auth.Models;
+using FoodManager.Internal.Shared.Http.Auth.Responses;
+using Mattioli.Configurations.Http;
 
 namespace FoodManager.Auth.Application.Mappers
 {
@@ -8,7 +8,7 @@ namespace FoodManager.Auth.Application.Mappers
     {
         public static GroupResponse ToResponse(this Group group)
         {
-            return new GroupResponse(group.Id, group.Name, group.Path, group.Description, group.Attributes);
+            return new GroupResponse(group.Id, group.Name, group.Path, group.Description, group.Attributes!);
         }
 
         public static PagedResult<UserGroupResponse> ToResponse(this UserGroupResponse results, PageFilterRequest pageFilter, int totalResults)
