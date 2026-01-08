@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using FoodManager.Internal.Shared.Http.Auth.Models;
+using System.Text.Json.Serialization;
 
-namespace FoodManager.Auth.Domain.Models
+namespace FoodManager.Auth.Domain.Entities
 {
     public class User
     {
@@ -10,7 +11,7 @@ namespace FoodManager.Auth.Domain.Models
         public bool Enabled { get; set; }
         public bool EmailVerified { get; set; }
         public string Username { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public bool Totp { get; set; }
@@ -19,7 +20,7 @@ namespace FoodManager.Auth.Domain.Models
         public int NotBefore { get; set; }
         public long CreatedTimestamp { get; set; }
         public Access? Access { get; set; }
-        public Dictionary<string, string[]> Attributes { get; set; }
+        public Dictionary<string, string[]>? Attributes { get; set; }
 
         public User()
         {
@@ -50,11 +51,4 @@ namespace FoodManager.Auth.Domain.Models
             CreatedTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         }
     }
-
-    //public class User(Guid id, string username)
-    //{
-    //    public Guid Id { get; set; } = id;
-
-    //    public string Username { get; set; } = username;
-    //}
 }

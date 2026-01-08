@@ -1,15 +1,18 @@
 ﻿using Flurl;
 using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
-using FoodManager.Auth.Domain.Interfaces.Services;
-using FoodManager.Auth.Domain.Models;
-using MongoDB.Bson.IO;
+using Mattioli.Configurations.Models;
+
 using System.Text.Json;
+using FoodManager.Auth.Domain.Entities;
+using FoodManager.Internal.Shared.Http.Auth.Models;
 
 namespace FoodManager.Auth.Infrastructure.Repositories
 {
     public class UserRepository(IHttpClientFactory httpClientFactory, IKeycloakSettings keycloakSettings, IAuthRepository authRepository) : BaseRepository(httpClientFactory), IUserRepository
     {
+        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
+
         private readonly JsonSerializerOptions jsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
@@ -37,14 +40,14 @@ namespace FoodManager.Auth.Infrastructure.Repositories
                 return Result<int>.Failure(UserErrors.GetAllUsersError);
             }
 
-            var users = JsonSerializer.Deserialize<IEnumerable<User>>(content)!;
+            var users = JsonSerializer.Deserialize<IEnumerable<Domain.Entities.User>>(content)!;
 
             return Result<int>.Success(users.Count());
         }
 
         public async Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken)
         {
-            using var httpClient = httpClientFactory.CreateClient("KeycloakClient");
+            using var httpClient = _httpClientFactory.CreateClient("KeycloakClient");
 
             var UrlGetToken = httpClient.BaseAddress
                 .AppendPathSegment("realms")
