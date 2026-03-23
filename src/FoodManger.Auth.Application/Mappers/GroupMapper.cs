@@ -1,6 +1,7 @@
-﻿using FoodManager.Internal.Shared.Http.Auth.Models;
+﻿using FoodManager.Internal.Shared.Filters;
+using FoodManager.Internal.Shared.Http.Auth.Models;
 using FoodManager.Internal.Shared.Http.Auth.Responses;
-using Mattioli.Configurations.Http;
+using FoodManager.Internal.Shared.Responses;
 
 namespace FoodManager.Auth.Application.Mappers
 {

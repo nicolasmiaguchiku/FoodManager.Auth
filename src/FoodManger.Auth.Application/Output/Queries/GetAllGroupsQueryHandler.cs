@@ -1,7 +1,7 @@
 ﻿using FoodManager.Auth.Domain.Interfaces.Repositories;
 using FoodManager.Internal.Shared.Http.Auth.Models;
 using LiteBus.Queries.Abstractions;
-using Mattioli.Configurations.Models;
+using FoodManager.Internal.Shared.Responses;
 
 namespace FoodManager.Auth.Application.Output.Queries
 {

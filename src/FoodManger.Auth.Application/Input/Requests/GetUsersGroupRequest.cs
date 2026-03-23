@@ -1,4 +1,4 @@
-﻿using Mattioli.Configurations.Http;
+﻿using FoodManager.Internal.Shared.Filters;
 
 namespace FoodManager.Auth.Application.Input.Requests
 {

@@ -1,11 +1,9 @@
 ﻿using FoodManager.Auth.Application.Mappers;
-using FoodManager.Internal.Shared.Http.Auth.Responses;
 using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
-using Mattioli.Configurations.Models;
+using FoodManager.Internal.Shared.Http.Auth.Responses;
+using FoodManager.Internal.Shared.Responses;
 using LiteBus.Queries.Abstractions;
-using Mattioli.Configurations.Http;
-using FoodManager.Internal.Shared.Services;
 
 namespace FoodManager.Auth.Application.Output.Queries
 {

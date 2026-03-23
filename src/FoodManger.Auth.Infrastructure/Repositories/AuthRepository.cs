@@ -2,7 +2,7 @@
 using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
 using FoodManager.Internal.Shared.Http.Auth.Models;
-using Mattioli.Configurations.Models;
+using FoodManager.Internal.Shared.Responses;
 using System.Text.Json;
 
 namespace FoodManager.Auth.Infrastructure.Repositories
