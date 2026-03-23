@@ -7,13 +7,14 @@ namespace FoodManager.Auth.Application.Mappers
     {
         public static TokenDetailsResponse ToTokenResponse(this TokenDetails token)
         {
-            return new (
-                token.Access_Token,
-                token.Expires_In,
-                token.Expires_In,
-                token.Refresh_Token,
-                token.Token_Type,
-                token.Scope);
+            return new TokenDetailsResponse {
+                AccessToken = token.Access_Token,
+                ExpiresIn = token.Expires_In,
+                RefreshExpiresIn = token.Refresh_Expires_In,
+                RefreshToken = token.Refresh_Token,
+                TokenType = token.Token_Type,
+                Scope = token.Scope
+            };
         }
     }
 }

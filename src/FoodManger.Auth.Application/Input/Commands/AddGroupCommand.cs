@@ -1,5 +1,5 @@
 ﻿using FoodManager.Auth.Application.Input.Requests;
-using Mattioli.Configurations.Models;
+using FoodManager.Internal.Shared.Responses;
 using LiteBus.Commands.Abstractions;
 
 namespace FoodManager.Auth.Application.Input.Commands;

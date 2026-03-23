@@ -1,9 +1,9 @@
 ﻿using Flurl;
+using FoodManager.Auth.Domain.Entities;
 using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
+using FoodManager.Internal.Shared.Responses;
 using System.Text.Json;
-using Mattioli.Configurations.Models;
-using FoodManager.Auth.Domain.Entities;
 
 namespace FoodManager.Auth.Infrastructure.Repositories
 {

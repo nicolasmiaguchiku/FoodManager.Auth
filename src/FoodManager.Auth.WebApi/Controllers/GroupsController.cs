@@ -1,12 +1,12 @@
 ﻿using FoodManager.Auth.Application.Input.Commands;
 using FoodManager.Auth.Application.Input.Requests;
 using FoodManager.Auth.Application.Output.Queries;
-using Mattioli.Configurations.Models;
+using FoodManager.Internal.Shared.Attributes;
+using FoodManager.Internal.Shared.Responses;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using FoodManager.Internal.Shared.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FoodManger.Auth.WebApi.Controllers
 {

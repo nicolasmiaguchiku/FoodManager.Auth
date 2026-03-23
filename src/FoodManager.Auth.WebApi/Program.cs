@@ -1,6 +1,5 @@
 using FoodManager.Auth.CrossCutting.Extentions;
 using FoodManager.Internal.Shared.Extensions;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -16,20 +15,23 @@ builder.Services
     .AddHttpClients(applicationSettings.KeycloakSettings)
     .AddRepositories(applicationSettings)
     .AddApiAuthentication(applicationSettings.KeycloakSettings.Realm)
+    .ConfigureValidationErrorResponses()
+    .AddApiSpecification()
     .ConfigureLiteBus()
-    .AddOpenApi("v1");
+    .AddControllers();
 
-builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Host.UseSerilog(enviroment!, applicationSettings.MltSettings.SeqUrl!);
 
 var app = builder.Build();
 
 app.MapOpenApi();
-app.MapScalarApiReference(options => options.Servers = []);
+app.UseSpecification("Auth");
 
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseRequestContextLogging()
+   .UseHttpsRedirection()
+   .UseAuthentication()
+   .UseAuthorization();
 
 app.MapControllers();
 
