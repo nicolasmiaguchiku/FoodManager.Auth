@@ -3,17 +3,22 @@ using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
 using FoodManager.Internal.Shared.Http.Auth.Models;
 using FoodManager.Internal.Shared.Responses;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace FoodManager.Auth.Infrastructure.Repositories
 {
-    public class AuthRepository(IHttpClientFactory httpClientFactory, IKeycloakSettings keycloakSettings) : IAuthRepository
+    public class AuthRepository(
+        IHttpClientFactory httpClientFactory,
+        IKeycloakSettings keycloakSettings,
+        ILogger<AuthRepository> logger) : IAuthRepository
     {
         private readonly HttpClient _httpClient = httpClientFactory.CreateClient("KeycloakClient");
 
         private readonly JsonSerializerOptions jsonOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
         };
 
         public async Task<Result<TokenDetails>> GetAccessTokenAsync(CancellationToken cancellationToken)
@@ -37,7 +42,13 @@ namespace FoodManager.Auth.Infrastructure.Repositories
 
             if (!response.IsSuccessStatusCode)
             {
-                UserErrors.SetTechnicalMessage(content);
+                var message = $"StatusCode {response.StatusCode} - ReasonPhrase {response.ReasonPhrase} - Response {content}";
+                UserErrors.SetTechnicalMessage(message);
+
+                logger.LogError("Auth - StatusCode {statusCode} - ReasonPhrase - {ReasonPhrase} - Response - {Response}",
+                    response.StatusCode,
+                    response.ReasonPhrase,
+                    content);
                 return Result<TokenDetails>.Failure(UserErrors.TokenGenerationError);
             }
 
