@@ -204,6 +204,18 @@ namespace FoodManager.Auth.Infrastructure.Repositories
 
                 return Result<string>.Failure(UserErrors.CreationUserError);
             }
+
+            var location = response.Headers.Location?.ToString();
+
+            if (string.IsNullOrWhiteSpace(location))
+            {
+                UserErrors.SetTechnicalMessage("Header Location not found.");
+                return Result<string>.Failure(UserErrors.CreationUserError);
+            }
+
+            var userId = location.Split('/').Last();
+
+            return Result<string>.Success(userId);
         }
     }
 }
