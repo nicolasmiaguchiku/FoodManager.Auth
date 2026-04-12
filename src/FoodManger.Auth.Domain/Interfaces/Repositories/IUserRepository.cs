@@ -6,6 +6,8 @@ namespace FoodManager.Auth.Domain.Interfaces.Repositories
     public interface IUserRepository
     {
         Task<Result<TokenDetails>> LoginAsync(string username, string password, CancellationToken cancellationToken);
+        Task<Result<bool>> SignoutAsync(string refreshToken, CancellationToken cancellationToken);
         Task<Result<int>> GetTotalAsync(CancellationToken cancellationToken);
+        Task<Result<bool>> ResetPassword(Guid Id, string resetPassword, CancellationToken cancellationToken);
     }
 }
