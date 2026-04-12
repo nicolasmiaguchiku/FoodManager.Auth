@@ -1,9 +1,11 @@
 ﻿using Flurl;
+using FoodManager.Auth.Domain.Entities;
 using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
 using FoodManager.Internal.Shared.Http.Auth.Models;
 using FoodManager.Internal.Shared.Responses;
 using Microsoft.Extensions.Logging;
+using System.Text;
 using System.Text.Json;
 
 namespace FoodManager.Auth.Infrastructure.Repositories
@@ -173,6 +175,35 @@ namespace FoodManager.Auth.Infrastructure.Repositories
             }
 
             return Result<bool>.Success(true);
+        }
+
+        public async Task<Result<string>> CreteUserAsync(UserEntity user, CancellationToken cancellationToken)
+        {
+            var tokenDetails = await authRepository.GetAccessTokenAsync(cancellationToken);
+            var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
+
+            var url = httpClient.BaseAddress
+                .AppendPathSegment("admin")
+                .AppendPathSegment("realms")
+                .AppendPathSegment("FoodManager")
+                .AppendPathSegment("users");
+
+            var json = JsonSerializer.Serialize<UserEntity>(user);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(url, content, cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var message = $"StatusCode {response.StatusCode} - ReasonPhrase {response.ReasonPhrase} - Response {content}";
+                UserErrors.SetTechnicalMessage(message);
+
+                logger.LogError("Auth - StatusCode {statusCode} - ReasonPhrase - {ReasonPhrase} - Response - {Response}",
+                    response.StatusCode,
+                    response.ReasonPhrase,
+                    content);
+
+                return Result<string>.Failure(UserErrors.CreationUserError);
+            }
         }
     }
 }
