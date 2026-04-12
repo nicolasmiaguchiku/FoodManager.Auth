@@ -1,4 +1,5 @@
-﻿using FoodManager.Auth.Domain.Filters;
+﻿using FoodManager.Auth.Domain.Entities;
+using FoodManager.Auth.Domain.Filters;
 using FoodManager.Internal.Shared.Http.Auth.Models;
 using FoodManager.Internal.Shared.Http.Auth.Requests;
 using FoodManager.Internal.Shared.Http.Auth.Responses;
@@ -13,7 +14,7 @@ namespace FoodManager.Auth.Application.Mappers
             return new UserFilters(pageFilter, [], getUsersRequest.Usernames);
         }
 
-        public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<FoodManager.Auth.Domain.Entities.User> users)
+        public static IEnumerable<UserResponse> ToUsersResponse(this IEnumerable<UserEntity> users)
         {
             return users.Select(x => new UserResponse(
                 x.Id,

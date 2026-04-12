@@ -7,6 +7,6 @@ namespace FoodManager.Auth.Domain.Interfaces.Repositories
     {
         //Task<Result<bool>> AddUserToGroupAsync(Guid userId, Guid groupId, CancellationToken cancellationToken);
         //Task<Result<bool>> RemoveUserFromGroupAsync(Guid userId, Guid groupId, CancellationToken cancellationToken);
-        Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(Guid id, CancellationToken cancellationToken);
+        Task<Result<IEnumerable<UserEntity>>> GetUsersInGroupAsync(Guid id, CancellationToken cancellationToken);
     }
 }

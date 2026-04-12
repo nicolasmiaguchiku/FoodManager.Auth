@@ -20,7 +20,7 @@ namespace FoodManager.Auth.Infrastructure.Repositories
             PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
         };
 
-        public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<UserEntity>>> GetUsersInGroupAsync(Guid id, CancellationToken cancellationToken)
         {
             var tokenDetails = await _authRepository.GetAccessTokenAsync(cancellationToken);
             var httpClient = CreateHttpClientWithHeaders(tokenDetails.Data.Access_Token);
@@ -46,11 +46,11 @@ namespace FoodManager.Auth.Infrastructure.Repositories
                     response.ReasonPhrase,
                     content);
 
-                return Result<IEnumerable<User>>.Failure(GroupErrors.GetUsersInGroupsError);
+                return Result<IEnumerable<UserEntity>>.Failure(GroupErrors.GetUsersInGroupsError);
             }
-            var users = JsonSerializer.Deserialize<IEnumerable<User>>(content, jsonOptions)!;
+            var users = JsonSerializer.Deserialize<IEnumerable<UserEntity>>(content, jsonOptions)!;
 
-            return Result<IEnumerable<User>>.Success(users);
+            return Result<IEnumerable<UserEntity>>.Success(users);
         }
     }
 }

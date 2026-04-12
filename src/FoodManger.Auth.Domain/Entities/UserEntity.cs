@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FoodManager.Auth.Domain.Entities
 {
-    public class User
+    public class UserEntity
     {
         [JsonIgnore]
         public string Password { get; set; }
@@ -22,7 +22,7 @@ namespace FoodManager.Auth.Domain.Entities
         public Access? Access { get; set; }
         public Dictionary<string, string[]>? Attributes { get; set; }
 
-        public User()
+        public UserEntity()
         {
             Password = "";
             Username = "";
@@ -30,7 +30,7 @@ namespace FoodManager.Auth.Domain.Entities
             Attributes = [];
         }
 
-        public User(string userName, string password)
+        public UserEntity(string userName, string password)
         {
             Username = userName;
             Password = password;
@@ -38,7 +38,7 @@ namespace FoodManager.Auth.Domain.Entities
             Email = "";
         }
 
-        public User(string userName, string password, string email, string firstName, string lastName, Dictionary<string, string[]> attributes)
+        public UserEntity(string userName, string password, string email, string firstName, string lastName, Dictionary<string, string[]> attributes)
         {
             Enabled = true;
             EmailVerified = true;
