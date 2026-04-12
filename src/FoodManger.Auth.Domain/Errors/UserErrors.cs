@@ -1,4 +1,6 @@
 ﻿using FoodManager.Internal.Shared.Responses;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using MongoDB.Bson.Serialization.Conventions;
 
 namespace FoodManager.Auth.Domain.Errors
 {
@@ -29,6 +31,11 @@ namespace FoodManager.Auth.Domain.Errors
         public static Error SignOutError => new(
             "User.SignOutError",
             $"An error occurred while trying to do a sign out {TechnicalMessage}"
+        );
+
+        public static Error CreationUserError => new(
+            "User.CreationUserError",
+            $"An error occurred while trying to create a user. {TechnicalMessage}"
         );
 
         public static void SetTechnicalMessage(string technicalMessage)
