@@ -9,7 +9,7 @@ namespace FoodManager.Auth.Application.Mappers
     {
         public static GroupResponse ToResponse(this Group group)
         {
-            return new GroupResponse(group.Id, group.Name, group.Path, group.Description, group.Attributes!);
+            return new GroupResponse(group.Id, group.Name, group.Path, group.Description!, group.Attributes!);
         }
 
         public static PagedResult<UserGroupResponse> ToResponse(this UserGroupResponse results, PageFilterRequest pageFilter, int totalResults)

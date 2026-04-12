@@ -3,15 +3,21 @@ using FoodManager.Auth.Domain.Entities;
 using FoodManager.Auth.Domain.Errors;
 using FoodManager.Auth.Domain.Interfaces.Repositories;
 using FoodManager.Internal.Shared.Responses;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace FoodManager.Auth.Infrastructure.Repositories
 {
-    public class GroupUsersRepository(IHttpClientFactory httpClientFactory, IAuthRepository _authRepository, IKeycloakSettings keycloakSettings) : BaseRepository(httpClientFactory), IGroupUsersRepository
+    public class GroupUsersRepository(
+        IHttpClientFactory httpClientFactory,
+        IAuthRepository _authRepository,
+        IKeycloakSettings keycloakSettings,
+        ILogger<GroupRepository> logger) : BaseRepository(httpClientFactory), IGroupUsersRepository
     {
-        private JsonSerializerOptions jsonOptions = new()
+        private readonly JsonSerializerOptions jsonOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
         };
 
         public async Task<Result<IEnumerable<User>>> GetUsersInGroupAsync(Guid id, CancellationToken cancellationToken)
@@ -32,11 +38,19 @@ namespace FoodManager.Auth.Infrastructure.Repositories
 
             if (!response.IsSuccessStatusCode)
             {
-                GroupErrors.SetTechnicalMessage(response.ReasonPhrase!);
+                var message = $"StatusCode {response.StatusCode} - ReasonPhrase {response.ReasonPhrase} - Response {content}";
+                GroupErrors.SetTechnicalMessage(message);
+
+                logger.LogError("Auth - StatusCode {statusCode} - ReasonPhrase - {ReasonPhrase} - Response - {Response}",
+                    response.StatusCode,
+                    response.ReasonPhrase,
+                    content);
+
                 return Result<IEnumerable<User>>.Failure(GroupErrors.GetUsersInGroupsError);
             }
-            var users = JsonSerializer.Deserialize<IEnumerable<User>>(content, jsonOptions);
-            return Result<IEnumerable<User>>.Success(users!);
+            var users = JsonSerializer.Deserialize<IEnumerable<User>>(content, jsonOptions)!;
+
+            return Result<IEnumerable<User>>.Success(users);
         }
     }
 }

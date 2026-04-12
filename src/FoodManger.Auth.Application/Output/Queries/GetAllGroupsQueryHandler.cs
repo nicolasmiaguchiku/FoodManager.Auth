@@ -9,9 +9,7 @@ namespace FoodManager.Auth.Application.Output.Queries
     {
         public async Task<Result<IEnumerable<Group>>> HandleAsync(GetAllGroupsQuery message, CancellationToken cancellationToken = default)
         {
-            var result = await groupRepository.GetAllAsync(cancellationToken);
-
-            return Result<IEnumerable<Group>>.Success(result.Data);
+            return await groupRepository.GetAllAsync(cancellationToken);
         }
     }
 }

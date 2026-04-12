@@ -21,6 +21,16 @@ namespace FoodManager.Auth.Domain.Errors
             $"An error occurred while trying get all users. {TechnicalMessage}"
         );
 
+        public static Error ResetPasswordError => new(
+            "User.ResetPasswordError",
+            $"An error occurred while trying reset password. {TechnicalMessage}"
+        );
+
+        public static Error SignOutError => new(
+            "User.SignOutError",
+            $"An error occurred while trying to do a sign out {TechnicalMessage}"
+        );
+
         public static void SetTechnicalMessage(string technicalMessage)
         {
             TechnicalMessage = technicalMessage;
