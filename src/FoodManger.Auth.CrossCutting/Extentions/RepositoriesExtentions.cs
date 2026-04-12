@@ -9,7 +9,7 @@ namespace FoodManager.Auth.CrossCutting.Extentions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services, Settings settings)
         {
-            services.AddSingleton<IKeycloakSettings>(new KeycloakSettingsAdapter(settings.KeycloakSettings));
+            services.AddSingleton<IKeycloakSettingsRepository>(new KeycloakSettingsAdapter(settings.KeycloakSettings));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();

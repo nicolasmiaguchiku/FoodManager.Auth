@@ -12,7 +12,7 @@ namespace FoodManager.Auth.Infrastructure.Repositories
     public class GroupRepository(
         IHttpClientFactory httpClientFactory,
         IAuthRepository _authRepository,
-        IKeycloakSettings keycloakSettings,
+        IKeycloakSettingsRepository keycloakSettings,
         ILogger<GroupRepository> logger) : BaseRepository(httpClientFactory), IGroupRepository
     {
         private readonly JsonSerializerOptions jsonOptions = new()

@@ -10,7 +10,7 @@ namespace FoodManager.Auth.Infrastructure.Repositories
 {
     public class AuthRepository(
         IHttpClientFactory httpClientFactory,
-        IKeycloakSettings keycloakSettings,
+        IKeycloakSettingsRepository keycloakSettings,
         ILogger<AuthRepository> logger) : IAuthRepository
     {
         private readonly HttpClient _httpClient = httpClientFactory.CreateClient("KeycloakClient");

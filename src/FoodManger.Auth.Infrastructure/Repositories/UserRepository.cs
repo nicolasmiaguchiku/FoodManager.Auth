@@ -10,7 +10,7 @@ namespace FoodManager.Auth.Infrastructure.Repositories
 {
     public class UserRepository(
         IHttpClientFactory httpClientFactory,
-        IKeycloakSettings keycloakSettings,
+        IKeycloakSettingsRepository keycloakSettings,
         IAuthRepository authRepository,
         ILogger<UserRepository> logger) : BaseRepository(httpClientFactory), IUserRepository
     {
