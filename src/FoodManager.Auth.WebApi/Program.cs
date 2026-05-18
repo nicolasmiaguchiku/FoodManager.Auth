@@ -12,9 +12,10 @@ builder.Configuration
 var applicationSettings = builder.Configuration.ApplyEnvironmentOverridesToSettings(builder.Environment);
 
 builder.Services
-    .AddHttpClients(applicationSettings.KeycloakSettings)
+    //REFATORAR EXTENSION METHOD
+    //.AddHttpClients(applicationSettings.KeycloakSettings)
     .AddRepositories(applicationSettings)
-    .AddApiAuthentication(applicationSettings.KeycloakSettings.Realm)
+    .AddMongo(applicationSettings.MongoSettings)
     .ConfigureValidationErrorResponses()
     .AddApiSpecification()
     .ConfigureLiteBus()
