@@ -13,6 +13,7 @@ namespace FoodManager.Auth.CrossCutting.Extentions
             if (!host.IsDevelopment())
             {
                 settings!.MongoSettings.ConnectionString = GetOrDefault("ConnectionString_Mongo", settings.MongoSettings.ConnectionString);
+                settings.MltSettings.SeqUrl = GetOrDefault("SeqUrl", settings.MltSettings.SeqUrl);
             }
 
             return settings!;
